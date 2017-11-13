@@ -27,7 +27,19 @@ public:
 	virtual void Possess(APawn *InPawn) override;
 
 	uint8 EnemyKeyID; // to get blackboard objects in cpp by uint8 key
-	
+	uint8 WayPointLocationID;
+
+	// Blueprint callable test
+	UFUNCTION(BlueprintCallable, Category = "FutilityAI")
+		FVector getLocationVec();
+
+	// Blueprint callable test
+	UFUNCTION(BlueprintCallable, Category = "FutilityAI")
+		void setLocationVec(FVector location);
+
+private:
+
+	FVector LocationVec;
 	
 	
 };

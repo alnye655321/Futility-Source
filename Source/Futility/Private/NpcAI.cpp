@@ -13,6 +13,8 @@ ANpcAI::ANpcAI()
 	BlackbaordComp = CreateAbstractDefaultSubobject<UBlackboardComponent>(TEXT("BlackboardComp"));
 
 	BehaviorComp = CreateAbstractDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorComp"));
+
+	LocationVec = FVector(0.0f, 0.0f, 0.0f);
 }
 
 void ANpcAI::Possess(APawn * InPawn)
@@ -26,7 +28,22 @@ void ANpcAI::Possess(APawn * InPawn)
 		BlackbaordComp->InitializeBlackboard(*Char->BotBehavior->BlackboardAsset); // init blackboard
 
 		EnemyKeyID = BlackbaordComp->GetKeyID("Target"); // target is name for id in blackboard, can store anything waypoints etc.
+		WayPointLocationID = BlackbaordComp->GetKeyID("WayPointLocActor"); // !!! need another if check here, assuming at least one waypoint exisiting
 
 		BehaviorComp->StartTree(*Char->BotBehavior); // start the tree to decide actions
 	}
 }
+
+// should perform some additional validity check here !!!
+FVector ANpcAI::getLocationVec()
+{
+	return LocationVec;
+}
+
+void ANpcAI::setLocationVec(FVector location)
+{
+	LocationVec = location;
+}
+
+
+
