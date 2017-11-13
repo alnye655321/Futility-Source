@@ -28,6 +28,10 @@ public:
 
 	uint8 EnemyKeyID; // to get blackboard objects in cpp by uint8 key
 	uint8 WayPointLocationID;
+	uint8 EntryPointID;
+
+	int32 getRandOutdoorEntry(); // set random int for picking from entry box array at the moment
+	void setRandOutdoorEntry(int32 setInt);
 
 	// Blueprint callable test
 	UFUNCTION(BlueprintCallable, Category = "FutilityAI")
@@ -40,6 +44,7 @@ public:
 private:
 
 	FVector LocationVec;
+	int32 randEntry; // for choosing entrance to building
 	
 	
 };
