@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "AIController.h"
 #include "NpcAI.generated.h"
 
@@ -33,11 +34,9 @@ public:
 	int32 getRandOutdoorEntry(); // set random int for picking from entry box array at the moment
 	void setRandOutdoorEntry(int32 setInt);
 
-	// Blueprint callable test
 	UFUNCTION(BlueprintCallable, Category = "FutilityAI")
 		FVector getLocationVec();
 
-	// Blueprint callable test
 	UFUNCTION(BlueprintCallable, Category = "FutilityAI")
 		void setLocationVec(FVector location);
 

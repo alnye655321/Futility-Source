@@ -4,32 +4,29 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "OutdoorTriggerBox.generated.h"
+#include "KitchenBox.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class FUTILITY_API AOutdoorTriggerBox : public AActor
+class FUTILITY_API AKitchenBox : public AActor
 {
 	GENERATED_BODY()
 	
-public:
-	AOutdoorTriggerBox();
+public:	
+	// Sets default values for this actor's properties
+	AKitchenBox();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:
-
+public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// root component for everything else to be attached to
 	// A SceneComponent has a transform and supports attachment, but has no rendering or collision capabilities. Useful as a 'dummy' component in the hierarchy to offset others
 	UPROPERTY(EditAnywhere)
-		USceneComponent* OutdoorTriggerRoot;
+		USceneComponent* KitchenBoxTriggerRoot;
 
 	// collision box
 	UPROPERTY(EditAnywhere)
@@ -48,4 +45,6 @@ private:
 
 	FVector LocationVec;
 
+	
+	
 };

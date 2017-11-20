@@ -35,6 +35,43 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCAttr)
 		bool isOutside;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCAttr)
+		bool inKitchen;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCAttr)
+		bool inFamilyRoom;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCAttr)
+		bool inLivingRoom;
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityAI")
+		void facePlayer();
+
+	// getters & setters
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		bool getIsOutside();
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		void setIsOutside(bool outside);
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		bool getInKitchen();
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		void setInKitchen(bool kitchen);
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		bool getInFamilyRoom();
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		void setInFamilyRoom(bool familyRoom);
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		bool getInLivingRoom();
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		void setInLivingRoom(bool livingRoom);
+
 	
 	
 };
