@@ -28,7 +28,7 @@ void UBTService_CheckForPlayer::TickNode(UBehaviorTreeComponent & OwnerComp, uin
 
 		if (TargetPlayer)
 		{
-			OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Object>(NpcPC->EnemyKeyID, TargetPlayer); // set the blackboard value to the target player
+			//OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Object>(NpcPC->TargetEnemyKeyName, TargetPlayer); // set the blackboard value to the target player, !!! need to use a getter/setter here
 			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "player is here");
 		}
 	}

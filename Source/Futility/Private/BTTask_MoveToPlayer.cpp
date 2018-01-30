@@ -19,15 +19,15 @@ EBTNodeResult::Type UBTTask_MoveToPlayer::ExecuteTask(UBehaviorTreeComponent& Ow
 	// cast it from the blackboard key
 	// value is set in BTService_CheckForPlayer, which is run in engine Behavior Tree, and controlled by NpcAI
 	// accessed in engine in BehaviorTree through tasks, MoveToPlayer. Called after check for player
-	AFutilityVRCharacter *TargetPlayer = Cast<AFutilityVRCharacter>(OwnerComp.GetBlackboardComponent()->GetValue<UBlackboardKeyType_Object>(NpcPC->EnemyKeyID));
+	//AFutilityVRCharacter *TargetPlayer = Cast<AFutilityVRCharacter>(OwnerComp.GetBlackboardComponent()->GetValue<UBlackboardKeyType_Object>(NpcPC->TargetEnemyKeyName)); // !!! need to use getter/setter from AI here
 
-	if (TargetPlayer)
-	{
-		NpcPC->MoveToActor(TargetPlayer, 5.f, true, true, true, 0, true);
-		return EBTNodeResult::Succeeded;
-	}
-	else
-	{
+	//if (TargetPlayer)
+	//{
+	//	NpcPC->MoveToActor(TargetPlayer, 5.f, true, true, true, 0, true);
+	//	return EBTNodeResult::Succeeded;
+	//}
+	//else
+	//{
 		return EBTNodeResult::Failed;
-	}
+	//}
 }

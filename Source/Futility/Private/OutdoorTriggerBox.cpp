@@ -27,6 +27,7 @@ void AOutdoorTriggerBox::BeginPlay()
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "my log2");
 
 	CollisionBox->OnComponentBeginOverlap.AddDynamic(this, &AOutdoorTriggerBox::OnPlayerEnterPickupBox); // on the overlap
+
 }
 
 // Called every frame
@@ -50,7 +51,8 @@ void AOutdoorTriggerBox::OnPlayerEnterPickupBox(UPrimitiveComponent * Overlapped
 
 	if (PossibleNpc != NULL)
 	{
-		PossibleNpc->setIsOutside(false);
+		PossibleNpc->setIsInside(true);
+		
 	}
 
 	

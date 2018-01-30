@@ -31,7 +31,7 @@ void UBTServiceCheckForWaypoints::TickNode(UBehaviorTreeComponent & OwnerComp, u
 
 		for (AActor* Actor : FoundActors)
 		{
-			OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Object>(NpcPC->WayPointLocationID, Actor); // set the blackboard value to the target player
+			// OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Object>(NpcPC->TargetEnemyKeyName, Actor); // set the blackboard value to the target player !!! need to use getter/setter from AI here
 			//Actor->SomeActorFunc();
 			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, "debug msg found acotrs");
 		}

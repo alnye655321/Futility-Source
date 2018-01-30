@@ -31,7 +31,7 @@ void UBTServiceCheckForOutdoorEntry::TickNode(UBehaviorTreeComponent & OwnerComp
 		{
 			int32 randIndex = NpcPC->getRandOutdoorEntry();
 			AActor* Actor = FoundActors[randIndex];
-			OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Object>(NpcPC->EntryPointID, Actor); // set the blackboard value to the target player
+			//OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Object>(NpcPC->EntryPointID, Actor); // set the blackboard value to the target player !!! need to use getter/setter from AI here
 		}
 
 	}

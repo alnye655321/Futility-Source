@@ -2,34 +2,48 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "Kismet/KismetMathLibrary.h"
 #include "AIController.h"
+#include "Npc.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "OutdoorTriggerBox.h"
+#include "TriggerBox_Futility.h"
 #include "NpcAI.generated.h"
+
+class UBehaviorTreeComponent;
+class UBlackboardComponent;
 
 /**
  * 
  */
 UCLASS()
-class FUTILITY_API ANpcAI : public AAIController
+class ANpcAI : public AAIController
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 
-	UPROPERTY(transient) // initilize to 0 at the start
-		class UBlackboardComponent *BlackbaordComp;
-
+private:
 	UPROPERTY(transient)
-		class UBehaviorTreeComponent *BehaviorComp;
+		UBlackboardComponent* BlackboardComp;
+
+	/* Cached BT component */
+	UPROPERTY(transient)
+		UBehaviorTreeComponent* BehaviorComp;
+
+	FVector LocationVec;
+	int32 randEntry; // for choosing entrance to building
 	
 public:
 
-	ANpcAI();
+	virtual void Possess(class APawn *InPawn) override;
 
-	virtual void Possess(APawn *InPawn) override;
+	void SetOutdoorBox(class AOutdoorTriggerBox* InActor);
 
-	uint8 EnemyKeyID; // to get blackboard objects in cpp by uint8 key
-	uint8 WayPointLocationID;
-	uint8 EntryPointID;
+	class AOutdoorTriggerBox* GetOutdoorBox() const;
+
+	void SetIndoorBox(ATriggerBox_Futility * InActor);
+
+	ATriggerBox_Futility * GetIndoorBox() const;
+
+	void setIsInside(bool inside);
 
 	int32 getRandOutdoorEntry(); // set random int for picking from entry box array at the moment
 	void setRandOutdoorEntry(int32 setInt);
@@ -40,10 +54,23 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "FutilityAI")
 		void setLocationVec(FVector location);
 
-private:
+protected:
+	// Check of we have LOS to a character
+	//bool LOSTrace(AShooterCharacter* InEnemyChar) const;
 
-	FVector LocationVec;
-	int32 randEntry; // for choosing entrance to building
+	int32 OutdoorBoxID;
+	int32 IndoorBoxID;
+	int32 SelfActor;
+	int32 IsInside;
+
+	/** Handle for efficient management of Respawn timer */
+	//FTimerHandle TimerHandle_Respawn;
+
+public:
+	/** Returns BlackboardComp subobject **/
+	FORCEINLINE UBlackboardComponent* GetBlackboardComp() const { return BlackboardComp; }
+	/** Returns BehaviorComp subobject **/
+	FORCEINLINE UBehaviorTreeComponent* GetBehaviorComp() const { return BehaviorComp; }
 	
 	
 };

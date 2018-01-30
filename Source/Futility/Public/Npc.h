@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Npc.generated.h"
 
@@ -33,7 +32,7 @@ public:
 		bool isWalking;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCAttr)
-		bool isOutside;
+		bool isInside;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCAttr)
 		bool inKitchen;
@@ -44,15 +43,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCAttr)
 		bool inLivingRoom;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCAttr)
+		bool inBedRoom;
+
 	UFUNCTION(BlueprintCallable, Category = "FutilityAI")
 		void facePlayer();
 
 	// getters & setters
 	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
-		bool getIsOutside();
+		bool getIsInside();
 
 	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
-		void setIsOutside(bool outside);
+		void setIsInside(bool outside);
 
 	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
 		bool getInKitchen();
@@ -71,6 +73,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
 		void setInLivingRoom(bool livingRoom);
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		bool getInBedRoom();
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		void setInBedRoom(bool bedRoom);
 
 	
 	

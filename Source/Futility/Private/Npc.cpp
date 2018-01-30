@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Futility.h"
+#include "NpcAI.h"
+#include "OutdoorTriggerBox.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Npc.h"
 
@@ -12,10 +14,11 @@ ANpc::ANpc()
 	PrimaryActorTick.bCanEverTick = true;
 
 	isWalking = false;
-	isOutside = true; // !!! have a check, all npcs may not start outside
+	isInside = false; // !!! have a check, all npcs may not start outside
 	inKitchen = false;
 	inFamilyRoom = false;
 	inLivingRoom = false;
+	inBedRoom = false;
 
 }
 
@@ -23,6 +26,20 @@ ANpc::ANpc()
 void ANpc::BeginPlay()
 {
 	Super::BeginPlay();
+
+	ANpcAI* AIController = Cast<ANpcAI>(GetController());
+
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AOutdoorTriggerBox::StaticClass(), FoundActors);
+
+	if (FoundActors.Num() > 0)
+	{
+		int32 randIndex = AIController->getRandOutdoorEntry();
+		AActor* Actor = FoundActors[randIndex];
+		AOutdoorTriggerBox* outdoorTriggerBox = Cast<AOutdoorTriggerBox>(Actor);
+		//AIController->SetWaypoint(outdoorTriggerBox);
+		
+	}
 	
 }
 
@@ -41,14 +58,17 @@ void ANpc::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 // getters & setters
-bool ANpc::getIsOutside()
+bool ANpc::getIsInside()
 {
-	return isOutside;
+	return isInside;
 }
 
-void ANpc::setIsOutside(bool outside)
+void ANpc::setIsInside(bool inside)
 {
-	isOutside = outside;
+	isInside = inside; // update local npc
+
+	ANpcAI* AIController = Cast<ANpcAI>(GetController()); // update AI which sets BlackBoard key
+	AIController->setIsInside(inside);
 }
 
 bool ANpc::getInKitchen()
@@ -79,6 +99,16 @@ bool ANpc::getInLivingRoom()
 void ANpc::setInLivingRoom(bool livingRoom)
 {
 	inLivingRoom = livingRoom;
+}
+
+bool ANpc::getInBedRoom()
+{
+	return inBedRoom;
+}
+
+void ANpc::setInBedRoom(bool bedRoom)
+{
+	inBedRoom = bedRoom;
 }
 
 void ANpc::facePlayer()
