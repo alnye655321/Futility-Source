@@ -25,9 +25,7 @@ EBTNodeResult::Type UBTTask_MoveToWaypoint::ExecuteTask(UBehaviorTreeComponent& 
 
 	if (FoundActors.Num() > 0)
 	{
-		// never changing the blackboard key value here
-		// should be different random selection method, there is one inline func in another project... !!!
-		int32 randIndex = MyController->getRandOutdoorEntry(); // this should not be getRandOutdoorEntry
+		int32 randIndex = FMath::RandRange(0, FoundActors.Num() - 1); // get random indoor trigger box to move toward
 		AActor* Actor = FoundActors[randIndex];
 		ATriggerBox_Futility* indoorBox = Cast<ATriggerBox_Futility>(Actor);
 		MyController->SetIndoorBox(indoorBox);
