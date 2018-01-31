@@ -30,6 +30,8 @@ private:
 
 	FVector LocationVec;
 	int32 randEntry; // for choosing entrance to building
+
+	ANpc* ControlledNpc;
 	
 public:
 
@@ -42,6 +44,8 @@ public:
 	void SetIndoorBox(ATriggerBox_Futility * InActor);
 
 	ATriggerBox_Futility * GetIndoorBox() const;
+
+	AActor* GetNearestActor(TArray<AActor*> FoundActors);
 
 	void setIsInside(bool inside);
 

@@ -21,12 +21,13 @@ EBTNodeResult::Type UBTTask_MoveToOutdoorWaypoint::ExecuteTask(UBehaviorTreeComp
 
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AOutdoorTriggerBox::StaticClass(), FoundActors);
+	AActor* nearestOutdoorBox = MyController->GetNearestActor(FoundActors);//get the nearest outdoor entry tirgger box
 
 	if (FoundActors.Num() > 0)
 	{
-		int32 randIndex = MyController->getRandOutdoorEntry();
-		AActor* Actor = FoundActors[randIndex];
-		AOutdoorTriggerBox* outdoorbox = Cast<AOutdoorTriggerBox>(Actor);
+		//int32 randIndex = MyController->getRandOutdoorEntry();
+		//AActor* Actor = FoundActors[randIndex];
+		AOutdoorTriggerBox* outdoorbox = Cast<AOutdoorTriggerBox>(nearestOutdoorBox);
 		MyController->SetOutdoorBox(outdoorbox);
 
 		return EBTNodeResult::Succeeded;

@@ -39,6 +39,8 @@ void ANpcAI::Possess(APawn * InPawn)
 
 	ANpc *Bot = Cast<ANpc>(InPawn);
 
+	ControlledNpc = Bot;
+
 	// start behavior
 	if (Bot && Bot->BotBehavior)
 	{
@@ -133,6 +135,27 @@ class ATriggerBox_Futility* ANpcAI::GetIndoorBox() const
 	}
 
 	return NULL;
+}
+
+AActor* ANpcAI::GetNearestActor(TArray<AActor*> FoundActors)
+{
+	//ANpc *Bot = Cast<ANpc>(InPawn);
+	AActor* NpcActor = Cast<AActor>(ControlledNpc);
+
+	float distance = 999999.0f;
+	float newDistance = 0.0f;
+	AActor* nearestActor = nullptr;
+
+	for (AActor* actor : FoundActors)
+	{
+		newDistance = (NpcActor->GetActorLocation() - actor->GetActorLocation()).Size();
+		if (newDistance < distance)
+		{
+			distance = newDistance;
+			nearestActor = actor;
+		}
+	}
+	return nearestActor;
 }
 
 
