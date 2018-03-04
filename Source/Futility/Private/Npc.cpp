@@ -13,13 +13,6 @@ ANpc::ANpc()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	isWalking = false;
-	isInside = false; // !!! have a check, all npcs may not start outside
-	inKitchen = false;
-	inFamilyRoom = false;
-	inLivingRoom = false;
-	inBedRoom = false;
-
 }
 
 // Called when the game starts or when spawned
@@ -40,6 +33,13 @@ void ANpc::BeginPlay()
 		//AIController->SetWaypoint(outdoorTriggerBox);
 		
 	}
+
+	isWalking = true;
+	isInside = false; // !!! have a check, all npcs may not start outside
+	inKitchen = false;
+	inFamilyRoom = false;
+	inLivingRoom = false;
+	inBedRoom = false;
 	
 }
 
@@ -57,7 +57,20 @@ void ANpc::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+
 // getters & setters
+void ANpc::SetTarget(AActor * InActor)
+{
+	ANpcAI* AIController = Cast<ANpcAI>(GetController()); // update AI which sets BlackBoard key
+	AIController->SetTarget(InActor);
+}
+
+void ANpc::SetTargetVector(FVector TargetVec)
+{
+	ANpcAI* AIController = Cast<ANpcAI>(GetController()); // update AI which sets BlackBoard key
+	AIController->SetTargetVector(TargetVec);
+}
+
 bool ANpc::getIsInside()
 {
 	return isInside;
@@ -109,6 +122,9 @@ bool ANpc::getInBedRoom()
 void ANpc::setInBedRoom(bool bedRoom)
 {
 	inBedRoom = bedRoom;
+
+	ANpcAI* AIController = Cast<ANpcAI>(GetController()); // update AI which sets BlackBoard key
+	AIController->SetIsInBedroom(bedRoom);
 }
 
 void ANpc::facePlayer()

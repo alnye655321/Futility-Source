@@ -7,6 +7,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Bool.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
+#include "BehaviorTree/Blackboard/BlackboardKeyType_Vector.h"
 #include "Npc.h"
 #include "OutdoorTriggerBox.h"
 #include "TriggerBox_Futility.h"
@@ -50,10 +51,13 @@ void ANpcAI::Possess(APawn * InPawn)
 		}
 
 		// Define blackboard keys
+		Target = BlackboardComp->GetKeyID("Target");
+		TargetVector = BlackboardComp->GetKeyID("TargetVector");
 		OutdoorBoxID = BlackboardComp->GetKeyID("OutdoorBox");
 		IndoorBoxID = BlackboardComp->GetKeyID("IndoorBox");
 		SelfActor = BlackboardComp->GetKeyID("SelfActor");
 		IsInside = BlackboardComp->GetKeyID("IsInside");
+		IsInBedroom = BlackboardComp->GetKeyID("IsInBedroom");
 
 		BehaviorComp->StartTree(*(Bot->BotBehavior));
 
@@ -97,6 +101,15 @@ void ANpcAI::setIsInside(bool inside)
 	}
 }
 
+void ANpcAI::SetIsInBedroom(bool bedroom)
+{
+	if (BlackboardComp)
+	{
+		BlackboardComp->SetValue<UBlackboardKeyType_Bool>(IsInBedroom, bedroom);
+	}
+
+}
+
 
 void ANpcAI::SetOutdoorBox(class AOutdoorTriggerBox* InActor)
 {
@@ -104,6 +117,22 @@ void ANpcAI::SetOutdoorBox(class AOutdoorTriggerBox* InActor)
 	{
 		BlackboardComp->SetValue<UBlackboardKeyType_Object>(OutdoorBoxID, InActor);
 		SetFocus(InActor);
+	}
+}
+
+void ANpcAI::SetTarget(class AActor* InActor)
+{
+	if (BlackboardComp)
+	{
+		BlackboardComp->SetValue<UBlackboardKeyType_Object>(Target, InActor);
+	}
+}
+
+void ANpcAI::SetTargetVector(FVector location)
+{
+	if (BlackboardComp)
+	{
+		BlackboardComp->SetValue<UBlackboardKeyType_Vector>(TargetVector, location);
 	}
 }
 

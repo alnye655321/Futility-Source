@@ -39,6 +39,10 @@ public:
 
 	void SetOutdoorBox(class AOutdoorTriggerBox* InActor);
 
+	void SetTarget(AActor * InActor);
+
+	void SetTargetVector(FVector location);
+
 	class AOutdoorTriggerBox* GetOutdoorBox() const;
 
 	void SetIndoorBox(ATriggerBox_Futility * InActor);
@@ -48,6 +52,8 @@ public:
 	AActor* GetNearestActor(TArray<AActor*> FoundActors);
 
 	void setIsInside(bool inside);
+
+	void SetIsInBedroom(bool bedroom);
 
 	int32 getRandOutdoorEntry(); // set random int for picking from entry box array at the moment
 	void setRandOutdoorEntry(int32 setInt);
@@ -59,16 +65,17 @@ public:
 		void setLocationVec(FVector location);
 
 protected:
-	// Check of we have LOS to a character
-	//bool LOSTrace(AShooterCharacter* InEnemyChar) const;
 
+	//Blackboard Keys
+	int32 Target;
+	int32 TargetVector;
 	int32 OutdoorBoxID;
 	int32 IndoorBoxID;
 	int32 SelfActor;
 	int32 IsInside;
+	int32 IsInBedroom;
 
-	/** Handle for efficient management of Respawn timer */
-	//FTimerHandle TimerHandle_Respawn;
+
 
 public:
 	/** Returns BlackboardComp subobject **/

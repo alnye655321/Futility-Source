@@ -50,6 +50,13 @@ public:
 		void facePlayer();
 
 	// getters & setters
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		void SetTarget(class AActor* InActor);
+
+	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
+		void SetTargetVector(FVector TargetVec);
+
 	UFUNCTION(BlueprintCallable, Category = "FutilityNPC")
 		bool getIsInside();
 

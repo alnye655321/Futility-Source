@@ -2,6 +2,7 @@
 
 #include "Futility.h"
 #include "Npc.h"
+#include "Chair.h"
 #include "BedRoomBox.h"
 
 
@@ -54,8 +55,32 @@ void ABedRoomBox::OnPlayerEnterPickupBox(UPrimitiveComponent * OverlappedComp, A
 	if (PossibleNpc != NULL)
 	{
 		PossibleNpc->setInBedRoom(true);
+
+		int32 randomActorClass = 0;//!!! set to random number here when adding more interactable actors
+
+		if (randomActorClass == 0)
+		{
+			TArray <AActor*> OverlappingActors;
+			GetOverlappingActors(OverlappingActors);
+			//should set another random number here based on total number of actors
+			for (auto Chair : OverlappingActors)
+			{
+				AChair* PossibleChair = Cast<AChair>(Chair);
+				if (PossibleChair != NULL)
+				{
+					PossibleNpc->SetTarget(Chair);
+					FVector ChairSitdownLocation = PossibleChair->GetLocationVec();
+					PossibleNpc->SetTargetVector(ChairSitdownLocation);
+				}
+				
+			}
+			
+
+		}
 	}
 
+	//GetOverlappingActors(OverlappingActors);//return all overlapping actors
+	
 }
 
 // triggers leave bedroom room change in npc character
